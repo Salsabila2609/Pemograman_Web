@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CARDS</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="sb-admin-2.min.css" rel="stylesheet">
+
+    <script>
+        // Fungsi ini akan dipanggil saat halaman dimuat
+        window.onload = function () {
+            getWeather();
+        };
+    
+        function getWeather() {
+            var locationInput = "Surabaya";
+            var apiKey = "7280f3b0e468806c5f408e65f2aee9cc"; // Ganti dengan API Key Anda dari OpenWeatherMap
+            var endpoint = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + apiKey;
+        
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", endpoint, true);
+        
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayWeather(response);
+                } else if (xhr.readyState == 4) {
+                    displayError();
+                }
+            };
+        
+            xhr.send();
+        }
+        
+        function displayWeather(data) {
+            var weatherDiv = document.getElementById("weather");
+            var cityName = data.name;
+            var temperature = data.main.temp;
+            var description = data.weather[0].description;
+        
+            var weatherHTML = "<p>Cuaca di " + cityName + "| " +  "Suhu: " + temperature + "°C" + ", " + "Deskripsi: " + description + "</p>";
+        
+            weatherDiv.innerHTML = weatherHTML;
+        }
+        
+        function displayError() {
+            var weatherDiv = document.getElementById("weather");
+            weatherDiv.innerHTML = "<p>Gagal mengambil data cuaca.</p>";
+        }
+    </script>
+
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">INFORMASI CUACA</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#36b9cc" class="bi bi-clouds-fill" viewBox="0 0 16 16">
+                                                <path d="M11.473 9a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 14h8.5a2.5 2.5 0 1 0-.027-5z"/>
+                                                <path d="M14.544 9.772a3.506 3.506 0 0 0-2.225-1.676 5.502 5.502 0 0 0-6.337-4.002 4.002 4.002 0 0 1 7.392.91 2.5 2.5 0 0 1 1.17 4.769z"/>
+                                              </svg>
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </div>
+                                        <div class="col mr-2 text-right">
+                                            <div class="h6 font-weight-bold " id="weather"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#f6c23e" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+                                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                                              </svg>
+                                            <i class="bi bi-chat-left-text-fill"></i>
+                                        </div>
+                                        <div class="col mr-2 text-right">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">156</div>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                New Comments</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#1cc88a" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
+                                              </svg>
+                                            <i class="bi bi-graph-up-arrow"></i>
+                                        </div>
+                                        <div class="col mr-2 text-right">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">156</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                New Comments</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+  
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#e74a3b" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                              </svg>
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                        </div>
+                                        <div class="col mr-2 text-right">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">423</div>
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Total Visits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">278</div>
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                New Project</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#e74a3b" class="bi bi-rocket-fill" viewBox="0 0 16 16">
+                                                <path d="M10.175 1.991c.81 1.312 1.583 3.43 1.778 6.819l1.5 1.83A2.5 2.5 0 0 1 14 12.202V15.5a.5.5 0 0 1-.9.3l-1.125-1.5c-.166-.222-.42-.4-.752-.57-.214-.108-.414-.192-.627-.282l-.196-.083C9.7 13.793 8.85 14 8 14c-.85 0-1.7-.207-2.4-.635-.068.03-.133.057-.198.084-.211.089-.411.173-.625.281-.332.17-.586.348-.752.57L2.9 15.8a.5.5 0 0 1-.9-.3v-3.298a2.5 2.5 0 0 1 .548-1.562l.004-.005L4.049 8.81c.197-3.323.969-5.434 1.774-6.756.466-.767.94-1.262 1.31-1.57a3.67 3.67 0 0 1 .601-.41A.549.549 0 0 1 8 0c.101 0 .17.027.25.064.037.017.086.041.145.075.118.066.277.167.463.315.373.297.85.779 1.317 1.537ZM9.5 6c0-1.105-.672-2-1.5-2s-1.5.895-1.5 2S7.172 8 8 8s1.5-.895 1.5-2Z"/>
+                                                <path d="M8 14.5c.5 0 .999-.046 1.479-.139L8.4 15.8a.5.5 0 0 1-.8 0l-1.079-1.439c.48.093.98.139 1.479.139Z"/>
+                                              </svg>
+                                            <i class="bi bi-rocket-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">156</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                New Client</div>
+                                        </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#1cc88a" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                          </svg>
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">64.89%</div>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Conversion Rate</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#f6c23e" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
+                                                <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778l-5.5 5.5zM8.5.015V7.5h7.485A8.001 8.001 0 0 0 8.5.015z"/>
+                                              </svg>
+                                            <i class="bi bi-pie-chart-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">423</div>
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Support Ticket</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#36b9cc" class="bi bi-life-preserver" viewBox="0 0 16 16">
+                                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm6.43-5.228a7.025 7.025 0 0 1-3.658 3.658l-1.115-2.788a4.015 4.015 0 0 0 1.985-1.985l2.788 1.115zM5.228 14.43a7.025 7.025 0 0 1-3.658-3.658l2.788-1.115a4.015 4.015 0 0 0 1.985 1.985L5.228 14.43zm9.202-9.202-2.788 1.115a4.015 4.015 0 0 0-1.985-1.985l1.115-2.788a7.025 7.025 0 0 1 3.658 3.658zm-8.087-.87a4.015 4.015 0 0 0-1.985 1.985L1.57 5.228A7.025 7.025 0 0 1 5.228 1.57l1.115 2.788zM8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                              </svg>
+                                              <i class="bi bi-life-preserver"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                              <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-info">278</div>
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col-auto">
+                                        <div class="text-xs font-weight-bold text-gray text-uppercase mb-1">New Post</div>
+                                      </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center"></div>
+                                    <div class="progress progress-sm mr-2">
+                                      <div
+                                        class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                  <div class="col-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#36b9cc" class="bi bi-book-fill" viewBox="0 0 16 16">
+                                      <path
+                                        d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"
+                                      />
+                                    </svg>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                              <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold">156</div>
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col-auto">
+                                        <div class="text-xs font-weight-bold text-gray text-uppercase mb-1 text-warning">New Comments</div>
+                                      </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center"></div>
+                                    <div class="progress progress-sm mr-2">
+                                      <div
+                                        class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                  <div class="col-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#f6c23e" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                      </svg>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                              <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold">64.89%</div>
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col-auto">
+                                        <div class="text-xs font-weight-bold text-gray text-uppercase mb-1 text-success">Bounce Rate</div>
+                                      </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center"></div>
+                                    <div class="progress progress-sm mr-2">
+                                      <div
+                                        class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                  <div class="col-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#1cc88a" class="bi bi-cup-hot-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5Z"/>
+                                        <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/>
+                                      </svg>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                              <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold">423</div>
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col-auto">
+                                        <div class="text-xs font-weight-bold text-gray text-uppercase mb-1 text-danger">Total Visits</div>
+                                      </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center"></div>
+                                    <div class="progress progress-sm mr-2">
+                                      <div
+                                        class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                  <div class="col-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#e74a3b" class="bi bi-signpost-2-fill" viewBox="0 0 16 16">
+                                        <path d="M7.293.707A1 1 0 0 0 7 1.414V2H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h5v1H2.5a1 1 0 0 0-.8.4L.725 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4H7v5h2v-5h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H9V6h4.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H9v-.586A1 1 0 0 0 7.293.707z"/>
+                                      </svg>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
